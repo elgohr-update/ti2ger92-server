@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: generate tag
-      run: echo upchieve-server:$(date +%s) > /tmp/tag-for-docker.txt
+      run: echo docker.pkg.github.com/upchieve/upchieve-server:$(date +%s) > /tmp/tag-for-docker.txt
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $(cat /tmp/tag-for-docker.txt) 
     - name: authenticate
@@ -19,4 +19,4 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_TO_PUSH_TO_PACKAGE_REGISTRY }}
     - name: push
-      run: docker push docker.pkg.github.com/upchieve/$(cat /tmp/tag-for-docker.txt)
+      run: docker push $(cat /tmp/tag-for-docker.txt)
