@@ -19,4 +19,4 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_TO_PUSH_TO_PACKAGE_REGISTRY }}
     - name: push
-      run: docker push docker.pkg.github.com/UPchieve/$(cat /tmp/tag-for-docker.txt)
+      run: docker push docker.pkg.github.com/upchieve/$(cat /tmp/tag-for-docker.txt)
