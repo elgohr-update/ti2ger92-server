@@ -13,4 +13,6 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag UPchieve-server:$(date +%s) 
     - name: authenticate
-      run: docker login docker.pkg.github.com -u 
+      run: docker login docker.pkg.github.com -u tylerwcb -p $GITHUB_TOKEN
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_TO_PUSH_TO_PACKAGE_REGISTRY }}
