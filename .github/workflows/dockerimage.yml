@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: generate tag
+      run: echo upchieve-server:$(date +%s) > /tmp/tag-for-docker.txt
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag upchieve-server:$(date +%s) 
     - name: authenticate
