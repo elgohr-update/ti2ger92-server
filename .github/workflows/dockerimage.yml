@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag UPchieve-server:$(date +%s) 
+      run: docker build . --file Dockerfile --tag upchieve-server:$(date +%s) 
     - name: authenticate
       run: docker login docker.pkg.github.com -u tylerwcb -p $GITHUB_TOKEN
       env:
