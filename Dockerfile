@@ -35,10 +35,6 @@ RUN source $NVM_DIR/nvm.sh \
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-
-# confirm installation
-RUN node -v
-RUN npm -v
 RUN mkdir /data && mkdir /data/db
 EXPOSE 3000
 EXPOSE 3001
@@ -46,3 +42,4 @@ EXPOSE 3001
 ARG FOO
 COPY . .
 RUN bin/docker_setup.sh
+CMD bash /bin/docker_run.sh 
