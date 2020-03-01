@@ -1,9 +1,9 @@
 #Change "BAR" if you want to trigger changes to ignore cache (while preserving environment cache)
-ARG FOO=BAR1
+ARG FOO=BAR
 
-# set the base image to Debian
+# set the base image to Mongo
 # https://hub.docker.com/_/debian/
-FROM debian:latest
+FROM circleci/mongo:3.6-stretch-ram
 
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -11,14 +11,8 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # and install dependencies
 RUN apt-get update \
     && apt-get install -y curl \
-    && apt-get -y autoclean \
-    && apt-get install -y gnupg \
-    && apt-get install -y wget \
     && apt-get install -y git
 
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | apt-key add -
-RUN echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/3.6 main" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
-RUN apt-get update && apt-get install -y mongodb-org
 
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
@@ -35,11 +29,10 @@ RUN source $NVM_DIR/nvm.sh \
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-RUN mkdir /data && mkdir /data/db
-EXPOSE 3000
-EXPOSE 3001
+EXPOSE 3000 3001
 
 ARG FOO
 COPY . .
+
 RUN bin/docker_setup.sh
 CMD bash /bin/docker_run.sh 
