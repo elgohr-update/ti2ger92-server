@@ -2,8 +2,7 @@
 ARG FOO=BAR
 
 # set the base image to Mongo
-# https://hub.docker.com/_/debian/
-FROM circleci/mongo:3.6-stretch-ram
+FROM mongo:4.2.3-bionic
 
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
